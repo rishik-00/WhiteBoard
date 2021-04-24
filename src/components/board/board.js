@@ -14,6 +14,10 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
 
+        this.emitAndCanvas = this.emitAndCanvas.bind(this);
+
+        this.socket.on('clear', this.clearcanvas1);
+
         this.socket.on("canvas-data", function(data){
 
             var root = this;
@@ -94,11 +98,25 @@ class Board extends React.Component {
                 root.socket.emit("canvas-data", base64ImageData);
             }, 1000)
         };
-    }
+    };
+
+ emitAndCanvas(){ 
+    this.socket.emit("clear");
+    this.clearcanvas1();
+};
+
+clearcanvas1()
+{
+        var canvas = document.getElementById('board'),
+        ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+};
 
     render() {
         return (
             <div className="sketch" id="sketch">
+                <button onClick={this.emitAndCanvas} id  = 'button'> clear</button>
                 <canvas className="board" id="board"></canvas>
             </div>
         )

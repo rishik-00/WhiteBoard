@@ -36,6 +36,8 @@ class Container extends React.Component
 				 <div className = 'brushsize-container'>
 				 Brush Size: &nbsp;
 				<select value= {this.state.size} onChange= {this.changeSize.bind(this)}>
+				
+				
 					
 					<option>1</option>
 					<option>2</option>
